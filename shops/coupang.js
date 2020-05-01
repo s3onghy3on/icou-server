@@ -5,26 +5,25 @@ const shopName = "Coupang";
 const baseUrl = "https://www.coupang.com/np/search";
 const rcode = "AXG6417";
 
-module.exports.getList = async (keyword, userAgent) => {
-  console.time(`${shopName} takes`);
+module.exports.getList = async (keyword) => {
+  // console.time(`${shopName} takes`);
   const config = {
     baseURL: baseUrl,
     params: {
       q: keyword,
-      listSize: 24
+      listSize: 24,
     },
-    validateStatus: function(status) {
+    validateStatus: function (status) {
       return status < 500;
-    }
-    // headers: { "User-Agent": userAgent }
+    },
   };
   const html = await getHtml(config);
   const data = parseHtml(html);
-  console.timeEnd(`${shopName} takes`);
+  // console.timeEnd(`${shopName} takes`);
   return data;
 };
 
-const parseHtml = async html => {
+const parseHtml = async (html) => {
   let data = [];
   try {
     const $ = await cheerio.load(html);
@@ -41,25 +40,23 @@ const parseHtml = async html => {
           .first()
           .text()
           .replace(/[^0-9]/g, ""),
-        rating: $(elem)
-          .find(".rating")
-          .text(),
+        rating: $(elem).find(".rating").text(),
         ratingCount: $(elem)
           .find(".rating-total-count")
           .text()
-          .replace(/[^0-9]/g, "")
+          .replace(/[^0-9]/g, ""),
       });
     });
   } catch (error) {
     console.error(error);
   }
-  console.log(`${shopName} items: ` + data.length);
+  // console.log(`${shopName} items: ` + data.length);
   return data;
 };
 
-const getHtml = async config => {
+const getHtml = async (config) => {
   try {
-    console.log(config);
+    // console.log(config);
     let res = await axios(config);
     return res.data;
   } catch (error) {

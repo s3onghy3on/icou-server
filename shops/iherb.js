@@ -5,26 +5,25 @@ const shopName = "iHerb";
 const baseUrl = "https://kr.iherb.com/search";
 const rcode = "AXG6417";
 
-module.exports.getList = async (keyword, userAgent) => {
-  console.time(`${shopName} takes`);
+module.exports.getList = async (keyword) => {
+  // console.time(`${shopName} takes`);
   const config = {
     baseURL: baseUrl,
     params: {
       kw: keyword,
-      noi: 24
+      noi: 24,
     },
-    validateStatus: function(status) {
+    validateStatus: function (status) {
       return status < 500;
-    }
-    // headers: { "User-Agent": userAgent }
+    },
   };
   const html = await getHtml(config);
   const data = parseHtml(html);
-  console.timeEnd(`${shopName} takes`);
+  // console.timeEnd(`${shopName} takes`);
   return data;
 };
 
-const parseHtml = async html => {
+const parseHtml = async (html) => {
   let data = [];
   try {
     const $ = await cheerio.load(html);
@@ -36,31 +35,27 @@ const parseHtml = async html => {
       cartInfo = JSON.parse(cartInfo);
       cartInfo = cartInfo.lineItems[0];
 
-      let ratingInfo = $(elem)
-        .find("div[itemprop=aggregateRating]")
-        .children();
+      let ratingInfo = $(elem).find("div[itemprop=aggregateRating]").children();
 
       data.push({
-        image: cartInfo.iURLSmall,
+        image: cartInfo.iURLMedium,
         title: cartInfo.productName,
-        link: $(elem)
-          .find(".product-link")
-          .attr("href"),
+        link: $(elem).find(".product-link").attr("href") + `?rcode=${rcode}`,
         price: cartInfo.discountPrice.replace(/[^0-9]/g, ""),
         rating: ratingInfo.eq(0).attr("content"),
-        ratingCount: ratingInfo.eq(1).attr("content")
+        ratingCount: ratingInfo.eq(1).attr("content"),
       });
     });
   } catch (error) {
     console.error(error);
   }
-  console.log(`${shopName} items: ` + data.length);
+  // console.log(`${shopName} items: ` + data.length);
   return data;
 };
 
-const getHtml = async config => {
+const getHtml = async (config) => {
   try {
-    console.log(config);
+    // console.log(config);
     let res = await axios(config);
     return res.data;
   } catch (error) {
