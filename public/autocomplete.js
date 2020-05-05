@@ -23,7 +23,7 @@ function autocomplete(inp) {
         b.innerHTML =
           "<strong>" + keywords[i].substr(0, val.length) + "</strong>";
         b.innerHTML += keywords[i].substr(val.length);
-        b.innerHTML += "<input type='hidden' value='" + keywords[i] + "'>";
+        b.innerHTML += `<input type="hidden" value="${keywords[i]}" />`;
         b.addEventListener("click", function (e) {
           inp.value = this.getElementsByTagName("input")[0].value;
           closeAllLists();
