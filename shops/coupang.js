@@ -6,7 +6,7 @@ const baseUrl = "https://www.coupang.com/np/search";
 const rcode = "AXG6417";
 
 module.exports.getList = async (keyword) => {
-  // console.time(`${shopName} takes`);
+  console.time(`${shopName} takes`);
   const config = {
     baseURL: baseUrl,
     params: {
@@ -19,7 +19,7 @@ module.exports.getList = async (keyword) => {
   };
   const html = await getHtml(config);
   const data = parseHtml(html);
-  // console.timeEnd(`${shopName} takes`);
+  console.timeEnd(`${shopName} takes`);
   return data;
 };
 
@@ -50,13 +50,13 @@ const parseHtml = async (html) => {
   } catch (error) {
     console.error(error);
   }
-  // console.log(`${shopName} items: ` + data.length);
+  console.log(`${shopName} items: ` + data.length);
   return data;
 };
 
 const getHtml = async (config) => {
   try {
-    // console.log(config);
+    console.log(config);
     let res = await axios(config);
     return res.data;
   } catch (error) {
