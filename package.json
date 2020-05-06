@@ -4,7 +4,7 @@
   "description": "icou API server",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js localhost 8080"
+    "start": "nodemon app.js localhost 80"
   },
   "dependencies": {
     "axios": "0.19.2",
