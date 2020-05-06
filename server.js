@@ -1,7 +1,7 @@
 const https = require("https");
 const http = require("http");
 
-const app = require("./my-express-app.js");
+const app = require("./app.js");
 const lex = require("greenlock-express").create({
   version: "v02",
   configDir: "/etc/letsencrypt",
