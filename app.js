@@ -1,13 +1,11 @@
 const express = require("express");
 const logger = require("morgan");
 const path = require("path");
-// const cors = require("cors");
 const rfs = require("rotating-file-stream");
-
-const searchRouter = require("./routes/search.js");
+// const cors = require("cors");
 
 const app = express();
-app.use(express.static("public"));
+// app.use(cors());
 
 const errorLogStream = rfs.createStream("error.log", {
   interval: "1d", // rotate daily
@@ -23,14 +21,8 @@ app.use(
   })
 );
 
-// app.use(cors());
+if (require.main === module) {
+  app.listen(80);
+}
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-app.use("/search", searchRouter);
-
-const listener = app.listen(80, () => {
-  console.log("Listening on port " + listener.address().port);
-});
+module.exports = app;
