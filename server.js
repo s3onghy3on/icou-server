@@ -1,8 +1,9 @@
 const https = require("https");
 const http = require("http");
+const greenlock = require("greenlock-express");
 
 const app = require("./app.js");
-const lex = require("greenlock-express").create({
+const lex = greenlock.create({
   version: "v02",
   configDir: "/etc/letsencrypt",
   server: "https://acme-v02.api.letsencrypt.org/directory",
