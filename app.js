@@ -31,6 +31,7 @@ app.get("/", (req, res) => {
 
 app.use("/search", searchRouter);
 
-const listener = app.listen(80, () => {
-  console.log("Listening on port " + listener.address().port);
-});
+// const listener = app.listen(80, () => {
+//   console.log("Listening on port " + listener.address().port);
+// });
+module.exports = app;
