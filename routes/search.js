@@ -5,12 +5,11 @@ const redis = require("redis");
 const client = redis.createClient();
 
 const util = require("../util/common.js");
-const iherb = require("../shops/iherb.js");
-const coupang = require("../shops/coupang.js");
+const iherb = require("../shops/iherb/iherb.js");
+const coupang = require("../shops/coupang/coupang.js");
 
 router.get("/", (req, res, next) => {
   // console.time("total time");
-
   let keyword = util.keywordNormalizer(req.query.kw);
   console.log(keyword);
 

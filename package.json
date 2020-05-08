@@ -4,14 +4,16 @@
   "description": "icou API server",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js localhost 80"
+    "start": "nodemon app.js localhost 8080"
   },
   "dependencies": {
     "axios": "0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "~4.16.1",
     "greenlock-express": "^4.0.3",
+    "moment": "^2.25.3",
     "morgan": "~1.9.1",
     "redis": "^3.0.2",
     "rotating-file-stream": "^2.1.0"
