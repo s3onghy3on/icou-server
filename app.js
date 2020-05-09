@@ -8,8 +8,20 @@ const coupangRouter = require("./routes/coupangRouter.js");
 
 const app = express();
 
-// const cors = require("cors");
-// app.use(cors());
+require("dotenv").config({
+  path: path.resolve(
+    process.cwd(),
+    process.env.NODE_ENV === "production" ? ".env" : ".env.dev"
+  ),
+});
+
+if (process.env.ENV === "dev") {
+  const cors = require("cors");
+  app.use(cors());
+  const listener = app.listen(8080, () => {
+    console.log("Listening on port " + listener.address().port);
+  });
+}
 
 app.use(express.static("public"));
 
@@ -19,7 +31,7 @@ const errorLogStream = rfs.createStream("error.log", {
 });
 
 app.use(
-  logger("dev", {
+  logger("short", {
     skip: function (req, res) {
       return res.statusCode < 400;
     },
@@ -33,9 +45,5 @@ app.get("/", (req, res) => {
 
 app.use("/search", searchRouter);
 app.use("/coupang", coupangRouter);
-
-// const listener = app.listen(8080, () => {
-//   console.log("Listening on port " + listener.address().port);
-// });
 
 module.exports = app;

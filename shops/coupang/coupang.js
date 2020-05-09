@@ -2,13 +2,11 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 const shopName = "Coupang";
-const baseUrl = "https://www.coupang.com/np/search";
-const rcode = "AXG6417";
 
 module.exports.getList = async (keyword) => {
   // console.time(`${shopName} takes`);
   const config = {
-    baseURL: baseUrl,
+    baseURL: process.env.BASE_SEARCH_URL_COUPANG,
     params: {
       q: keyword,
       listSize: 24,

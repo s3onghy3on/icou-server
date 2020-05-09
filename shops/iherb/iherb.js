@@ -1,13 +1,11 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const shopName = "iHerb";
-const baseUrl = "https://kr.iherb.com/search";
-const rcode = "AXG6417";
 
 module.exports.getList = async (keyword) => {
   // console.time(`${shopName} takes`);
   const config = {
-    baseURL: baseUrl,
+    baseURL: process.env.BASE_SEARCH_URL_IHERB,
     params: {
       kw: keyword,
       noi: 24,
@@ -39,7 +37,9 @@ const parseHtml = async (html) => {
       data.push({
         image: cartInfo.iURLMedium,
         title: cartInfo.productName,
-        link: $(elem).find(".product-link").attr("href") + `?rcode=${rcode}`,
+        link:
+          $(elem).find(".product-link").attr("href") +
+          `?rcode=${process.env.RCODE_IHERB}`,
         price: cartInfo.discountPrice.replace(/[^0-9]/g, ""),
         rating: ratingInfo.eq(0).attr("content"),
         ratingCount: ratingInfo.eq(1).attr("content"),
