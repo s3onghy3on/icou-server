@@ -16,6 +16,9 @@ module.exports.getList = async (keyword) => {
   };
   const html = await getHtml(config);
   const data = parseHtml(html);
+  if (html === false || data === false) {
+    return false;
+  }
   // console.timeEnd(`${shopName} takes`);
   return data;
 };
@@ -47,6 +50,7 @@ const parseHtml = async (html) => {
     });
   } catch (error) {
     console.error(error);
+    return false;
   }
   // console.log(`${shopName} items: ` + data.length);
   return data;
@@ -59,5 +63,6 @@ const getHtml = async (config) => {
     return res.data;
   } catch (error) {
     console.error(error);
+    return false;
   }
 };

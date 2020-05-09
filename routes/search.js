@@ -26,6 +26,11 @@ router.get("/", (req, res, next) => {
         iherb.getList(keyword),
         coupang.getList(keyword),
       ]);
+
+      if (iherbList === false && coupangList === false) {
+        res.status(500).send({ error: "Internal Error" });
+      }
+
       let result = { keyword, iherbList, coupangList };
       client.set(keyword, JSON.stringify(result));
       client.expireat(keyword, parseInt(+new Date() / 1000) + 7200);
