@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const path = require("path");
 const rfs = require("rotating-file-stream");
+const bodyParser = require("body-parser");
 
 const searchRouter = require("./routes/search.js");
 const coupangRouter = require("./routes/coupangRouter.js");
@@ -23,6 +24,8 @@ if (process.env.ENV === "dev") {
   });
 }
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static("public"));
 
 const errorLogStream = rfs.createStream("error.log", {

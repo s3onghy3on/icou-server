@@ -1,0 +1,6 @@
+::1 - GET /coupang/deeplink?url=https://www.coupang.com/vp/products/245647674?itemId=778634941&vendorItemId=4970111555&sourceType=srp_product_ads HTTP/1.1 404 155 - 3.240 ms
+::1 - GET /coupang/deeplink HTTP/1.1 404 155 - 0.663 ms
+::1 - GET /favicon.ico HTTP/1.1 404 150 - 0.394 ms
+::1 - POST /coupang/deeplink HTTP/1.1 500 26 - 495.669 ms
+::1 - POST /coupang/deeplink HTTP/1.1 500 26 - 281.079 ms
+::1 - POST /coupang/deeplink HTTP/1.1 500 26 - 353.322 ms
