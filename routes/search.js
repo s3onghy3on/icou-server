@@ -4,6 +4,7 @@ const router = express.Router();
 const redis = require("redis");
 const client = redis.createClient();
 
+const log = require("../util/log.js");
 const util = require("../util/common.js");
 const iherb = require("../shops/iherb/iherb.js");
 const coupang = require("../shops/coupang/coupang.js");
@@ -11,7 +12,8 @@ const coupang = require("../shops/coupang/coupang.js");
 router.get("/", (req, res, next) => {
   // console.time("total time");
   let keyword = util.keywordNormalizer(req.query.kw);
-  console.log(keyword);
+  // console.log(keyword);
+  log.search([keyword, req.clientIp]);
 
   client.get(keyword, async (err, obj) => {
     if (obj) {

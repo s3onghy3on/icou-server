@@ -3,9 +3,10 @@ const logger = require("morgan");
 const path = require("path");
 const rfs = require("rotating-file-stream");
 const bodyParser = require("body-parser");
+const requestIp = require("request-ip");
 
 const searchRouter = require("./routes/search.js");
-const coupangRouter = require("./routes/coupangRouter.js");
+const linkRouter = require("./routes/linkRouter.js");
 
 const app = express();
 
@@ -24,6 +25,7 @@ if (process.env.ENV === "dev") {
   });
 }
 
+app.use(requestIp.mw());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
@@ -47,6 +49,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/search", searchRouter);
-app.use("/coupang", coupangRouter);
+app.use("/link", linkRouter);
 
 module.exports = app;
